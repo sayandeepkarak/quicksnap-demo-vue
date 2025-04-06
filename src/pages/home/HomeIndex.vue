@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md flex flex-center">
-    <div class="full-width row full-width items-center q-mb-md">
+    <div class="full-width row full-width items-start no-wrap q-mb-md">
       <q-icon name="info" size="xs" color="accent" />
       <p class="q-mb-none q-ml-sm">
         This is the demo implementation for the
@@ -17,12 +17,6 @@
             :height="240"
             :format="formatConfig.selected"
             :mediaDeviceId="mediaDeviceConfig.selected"
-            @onReady="trackLog('✅ Webcam initialized: ' + $event?.detail?.message)"
-            @onCapture="trackLog('📸 Snapshot captured')"
-            @onQuicksnapError="trackLog('❌ An error occurred: ' + $event?.detail?.message)"
-            @onPermissionStateUpdate="
-              trackLog('🔐 Permission status updated: ' + $event.detail.status)
-            "
           />
         </div>
 
@@ -40,7 +34,7 @@
           map-options
         />
 
-        <div class="full-width q-mt-md row items-center">
+        <div class="full-width q-mt-md row items-center" style="gap: 10px">
           <q-select
             class="col-grow"
             outlined
@@ -48,14 +42,7 @@
             v-model="formatConfig.selected"
             :options="formatConfig.options"
           />
-          <q-btn
-            push
-            color="accent"
-            class="q-mx-md"
-            label="Capture"
-            :loading="isCapturing"
-            @click="captureImage"
-          />
+          <q-btn push color="accent" label="Capture" :loading="isCapturing" @click="captureImage" />
           <q-btn push color="secondary" label="Capture & Download" @click="captureAndDownload" />
         </div>
 
@@ -122,6 +109,33 @@ const mediaDeviceConfig = ref({
 })
 
 onMounted(async () => {
+  if (!quickSnapRef.value) return
+
+  // Add manual listeners
+  quickSnapRef.value.addEventListener('ready', (e) => {
+    trackLog('✅ Webcam initialized: ' + e?.detail?.message)
+  })
+
+  quickSnapRef.value.addEventListener('capture', () => {
+    trackLog('📸 Snapshot captured')
+  })
+
+  quickSnapRef.value.addEventListener('quicksnapError', (e) => {
+    trackLog('❌ An error occurred: ' + e?.detail?.message)
+  })
+
+  quickSnapRef.value.addEventListener('permissionStateUpdate', async (e) => {
+    trackLog('🔐 Permission status updated: ' + e.detail.status)
+    if (e.detail.status === 'granted') {
+      fetchMediaDevices()
+    }
+  })
+
+  // Populate media device list
+  fetchMediaDevices()
+})
+
+async function fetchMediaDevices() {
   const devices = await quickSnapRef.value?.getAvailableCameras()
   if (devices.length) {
     mediaDeviceConfig.value = {
@@ -129,7 +143,7 @@ onMounted(async () => {
       options: devices,
     }
   }
-})
+}
 
 function trackLog(msg) {
   logs.value.unshift(`[${new Date().toLocaleTimeString()}] ${msg}`)
