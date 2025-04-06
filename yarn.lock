@@ -2617,6 +2617,11 @@ quasar@^2.16.0:
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.18.1.tgz#3e9c68ef1db72cbbb188f2f943ac03662e712162"
   integrity sha512-db/P64Mzpt1uXJ0MapaG+IYJQ9hHDb5KtTCoszwC78DR7sA+Uoj7nBW2EytwYykIExEmqavOvKrdasTvqhkgEg==
 
+quicksnap@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/quicksnap/-/quicksnap-1.1.2.tgz#afa9911880cb12edc7a6e7a5e2d770b6ddb0a65a"
+  integrity sha512-hu9kwSU8AI4lvRtTuEuD8KWBx8lVMBRmAsUCrJi12vVGEhmzjcmXlU5Q1YzpZFDRQBPsE7qXc+d77IRilcrHEA==
+
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
