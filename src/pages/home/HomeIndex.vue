@@ -1,5 +1,12 @@
 <template>
   <div class="q-pa-md flex flex-center">
+    <div class="full-width row full-width items-center q-mb-md">
+      <q-icon name="info" size="xs" color="accent" />
+      <p class="q-mb-none q-ml-sm">
+        This is the demo implementation for the
+        <a href="https://www.npmjs.com/package/quicksnap" target="_blank">QuickSnap</a> NPM package.
+      </p>
+    </div>
     <q-card flat bordered class="q-pa-md" style="max-width: 100vw; width: 100%">
       <q-card-section class="full-width">
         <div class="full-width flex flex-center">

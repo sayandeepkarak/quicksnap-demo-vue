@@ -12,7 +12,14 @@
           size="sm"
           class="q-mr-sm"
         />
-        <q-img src="https://img.shields.io/npm/v/quicksnap.svg" width="100px" />
+        <q-btn
+          push
+          color="white"
+          text-color="secondary"
+          class="q-mx-md"
+          label="GitHub"
+          @click="handleOpenGithub"
+        />
       </q-toolbar>
     </q-header>
 
@@ -34,4 +41,8 @@ const isDark = ref($q.dark.isActive)
 watch(isDark, (val) => {
   $q.dark.set(val)
 })
+
+function handleOpenGithub() {
+  window.open('https://github.com/sayandeepkarak/quicksnap-demo-vue', '_blank')
+}
 </script>
